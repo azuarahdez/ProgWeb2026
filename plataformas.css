@@ -5,14 +5,27 @@ body {
     margin: 0;
 }
 
+#Youtube
 h1 {
     margin-top: 30px;
-    color: #970606;
+}
+.youtube {
+    color:crimson
+}
+.facebook {
+    color:dodgerblue
+}
+.X {
+    color:rgb(16, 11, 12)
+}
+.tiktok {
+    color:rgb(149, 44, 181)
 }
 h2 {
     margin-top: 30px;
-    color: #333;
+    color: #000000;
 }
+
 
 .contenedor-video {
     margin-top: 20px;
@@ -22,6 +35,9 @@ video {
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
 }
+
+
+
 
 
 
