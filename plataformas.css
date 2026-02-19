@@ -5,46 +5,38 @@ body {
     margin: 0;
 }
 
-#GoogleMaps
-h1 {
-    margin-top: 30px;
+/* Títulos principales de cada plataforma */
+.maps {
+    color: rgb(48, 114, 4);
 }
+
 .youtube {
-    color:rgb(4, 117, 159)
+    color: crimson;
 }
-#Youtube
-h1 {
-    margin-top: 30px;
-}
-.youtube {
-    color:crimson
-}
+
 .facebook {
-    color:dodgerblue
+    color: dodgerblue;
 }
-.X {
-    color:rgb(16, 11, 12)
+
+.x {
+    color: black;
 }
+
 .tiktok {
-    color:rgb(227, 8, 176)
-}
-h2 {
-    margin-top: 30px;
-    color: #000000;
+    color: rgb(227, 8, 176);
 }
 
-
-.contenedor-video {
-    margin-top: 20px;
+/* Subtítulos */
+h3 {
+    margin-top: 10px;
+    color: #000;
 }
 
-video {
+/* Estilo general para iframes */
+iframe {
+    display: block;
+    margin: 15px auto 40px auto;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    border: none;
 }
-
-
-
-
-
-
