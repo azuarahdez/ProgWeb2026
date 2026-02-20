@@ -6,33 +6,13 @@ body {
 }
 
 /* Títulos principales de cada plataforma */
-.maps {
-    color: rgb(48, 114, 4);
-}
-
-.youtube {
-    color: crimson;
-}
-
-.spotify {
-    color: rgb(6, 93, 22);
-}
-
-.facebook {
-    color: dodgerblue;
-}
-
-.insta {
-    color: rgb(93, 93, 209);
-}
-
-.x {
-    color: black;
-}
-
-.tiktok {
-    color: rgb(227, 8, 176);
-}
+.maps { color: rgb(48, 114, 4); }
+.youtube { color: crimson; }
+.spotify { color: rgb(6, 93, 22); }
+.facebook { color: dodgerblue; }
+.insta { color: rgb(93, 93, 209); }
+.x { color: black; }
+.tiktok { color: rgb(227, 8, 176); }
 
 /* Subtítulos */
 h3 {
@@ -69,10 +49,32 @@ iframe {
     transition: transform 0.4s ease-in-out;
 }
 
+/* 👉 SLIDE CON ALTURA FIJA + SCROLL */
 .slide {
-    min-width: 33.33%; /* 👈 3 visibles */
+    min-width: 33.33%;
+    height: 520px;              /* 🔥 Altura uniforme */
+    overflow-y: auto;           /* 🔥 Scroll interno */
+    overflow-x: hidden;
     padding: 15px;
-    box-sizing: border-box;}
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Scroll elegante */
+.slide::-webkit-scrollbar {
+    width: 6px;
+}
+
+.slide::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 10px;
+}
+
+.slide::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
 
 /* BOTONES */
 .btn {
@@ -84,27 +86,4 @@ iframe {
     border-radius: 50%;
     margin: 0 10px;
     box-shadow: 0px 3px 8px rgba(0,0,0,0.3);
-}
-.post {
-    height: 250px;          /* Altura fija */
-    overflow-y: auto;       /* Scroll vertical si hay mucho contenido */
-    overflow-x: hidden;     /* Oculta scroll horizontal */
-    padding: 15px;
-    border-radius: 12px;
-    background: #ffffff;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-}
-
-/* Estilo opcional del scroll */
-.post::-webkit-scrollbar {
-    width: 6px;
-}
-
-.post::-webkit-scrollbar-thumb {
-    background: #bbb;
-    border-radius: 10px;
-}
-
-.post::-webkit-scrollbar-thumb:hover {
-    background: #888;
 }
