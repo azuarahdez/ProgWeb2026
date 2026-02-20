@@ -6,7 +6,7 @@ document.querySelectorAll(".slider-container").forEach(container => {
     const prevBtn = container.querySelector(".prev");
 
     let index = 0;
-    const slidesToShow = 3;
+    const slidesToShow = 2;
     const totalSlides = slides.length;
 
     nextBtn.addEventListener("click", () => {
