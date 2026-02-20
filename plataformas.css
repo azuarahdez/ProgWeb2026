@@ -85,3 +85,26 @@ iframe {
     margin: 0 10px;
     box-shadow: 0px 3px 8px rgba(0,0,0,0.3);
 }
+.post {
+    height: 250px;          /* Altura fija */
+    overflow-y: auto;       /* Scroll vertical si hay mucho contenido */
+    overflow-x: hidden;     /* Oculta scroll horizontal */
+    padding: 15px;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+/* Estilo opcional del scroll */
+.post::-webkit-scrollbar {
+    width: 6px;
+}
+
+.post::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 10px;
+}
+
+.post::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
