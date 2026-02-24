@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Formulario de datos y préstamo</title>
+</head>
+<body>
+  
+  <h2>Datos personales y solicitud</h2>
+  <form id="loanForm">
+    <label for="edad">Edad</label>
+    <input id="edad" name="edad" type="number" />
+
+    <label for="lugar">Lugar de nacimiento</label>
+    <input id="lugar" name="lugar" type="text" />
+
+    <label for="ingresos">Ingresos mensuales (MXN / moneda)</label>
+    <input id="ingresos" name="ingresos" type="number" step="0.01" min="0" required />
+
+    <label for="score">Score (buro de crédito)</label>
+    <input id="score" name="score" type="number" min="0" max="999" required />
+    <div style="margin-top:6px; display:flex; align-items:center; gap:8px">
+      <input id="scoreRange" type="range" min="0" max="999" value="0" style="flex:1" />
+      <span id="scoreValue" aria-live="polite" style="min-width:40px; text-align:right; font-weight:600">0</span>
+    </div>
+
+
+    <div class="row">
+      <div>
+        <label for="monto">Monto solicitado</label>
+        <input id="monto" name="monto" type="number" step="0.01" min="0" required />
+      </div>
+      <div>
+        <label for="meses">Número de meses</label>
+        <input id="meses" name="meses" type="number" min="1" required />
+      </div>
+    </div>
+
+    <label for="tasa">Tasa de interés anual (%)</label>
+    <input id="tasa" name="tasa" type="number" step="0.01" min="0" required />
+
+    <button type="submit">Calcular</button>
+  </form>
+
+  <div id="resultado" aria-live="polite" hidden></div>
+
+  <script>
+    const form = document.getElementById('loanForm');
+    const resultado = document.getElementById('resultado');
+
+    // Sincronizar input numérico y slider de score
+    const scoreInput = document.getElementById('score');
+    const scoreRange = document.getElementById('scoreRange');
+    const scoreValue = document.getElementById('scoreValue');
+
+    // Inicializar valores (si el campo numérico ya tuviera valor)
+    scoreRange.value = scoreInput.value || 0;
+    scoreValue.textContent = scoreRange.value;
+
+    scoreRange.addEventListener('input', () => {
+      scoreInput.value = scoreRange.value;
+      scoreValue.textContent = scoreRange.value;
+    });
+
+    scoreInput.addEventListener('input', () => {
+      const v = scoreInput.value === '' ? 0 : scoreInput.value;
+      scoreRange.value = v;
+      scoreValue.textContent = v;
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const edad = Number(document.getElementById('edad').value);
+      const lugar = document.getElementById('lugar').value.trim();
+      const ingresos = Number(document.getElementById('ingresos').value);
+      const score = Number(document.getElementById('score').value);
+      const monto = Number(document.getElementById('monto').value);
+      const meses = Number(document.getElementById('meses').value);
+      const tasaAnual = Number(document.getElementById('tasa').value);
+
+      // validación simple del score (ajusta rangos según tu país)
+      if (score < 0 || score > 999) {
+        alert('Ingrese un score válido.');
+        return;
+      }
+
+      // cálculo de cuota mensual (fórmula de amortización)
+      const r = tasaAnual / 100 / 12; // tasa mensual
+      let cuota;
+      if (r === 0) cuota = monto / meses;
+      else cuota = (monto * r) / (1 - Math.pow(1 + r, -meses));
+
+      resultado.hidden = false;
+      resultado.innerHTML = `
+        <strong>Resumen:</strong>
+        <div>Edad: ${edad}</div>
+        <div>Lugar de nacimiento: ${lugar}</div>
+        <div>Ingresos mensuales: ${ingresos.toFixed(2)}</div>
+        <div>Score: ${score}</div>
+        <div>Monto: ${monto.toFixed(2)}</div>
+        <div>Plazo (meses): ${meses}</div>
+        <div>Tasa anual: ${tasaAnual.toFixed(2)}%</div>
+        <div style="margin-top:8px"><strong>Cuota mensual estimada:</strong> ${cuota.toFixed(2)}</div>
+      `;
+    });
+
+  </script>
+</body>
+</html>
