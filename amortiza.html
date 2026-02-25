@@ -1,14 +1,13 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Formulario de datos y préstamo</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Formulario de préstamo</title>
 
- <style>
-body{
-
-  
+<style>
+body
+{
   margin:0;
   font-family: Arial, sans-serif;
   background: linear-gradient(to right, #5f86f2, #3a5bbf);
@@ -20,7 +19,7 @@ body{
 
 .card{
   background:white;
-  width:450px;
+  width:480px;
   border-radius:12px;
   overflow:hidden;
   box-shadow:0 10px 25px rgba(0,0,0,0.2);
@@ -55,6 +54,7 @@ input{
   border:1px solid #ccc;
   outline:none;
   transition:0.3s;
+  box-sizing:border-box;
 }
 
 input:focus{
@@ -69,6 +69,19 @@ input:focus{
 
 .row div{
   flex:1;
+}
+
+.range-container{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:8px;
+}
+
+.range-container span{
+  font-weight:bold;
+  min-width:35px;
+  text-align:right;
 }
 
 .btn{
@@ -88,109 +101,132 @@ input:focus{
 .btn:hover{
   background:#2449aa;
 }
+
+#resultado{
+  margin-top:20px;
+  background:#eef2ff;
+  padding:15px;
+  border-radius:8px;
+  font-size:14px;
+}
 </style>
 
 </head>
+
 <body>
-  
-  <h2>Datos personales y solicitud</h2>
-  <form id="loanForm">
-    <label for="edad">Edad</label>
-    <input id="edad" name="edad" type="number" />
 
-    <label for="lugar">Lugar de nacimiento</label>
-    <input id="lugar" name="lugar" type="text" />
+<div class="card">
+  <div class="card-header">
+    DATOS PERSONALES Y SOLICITUD
+  </div>
 
-    <label for="ingresos">Ingresos mensuales (MXN / moneda)</label>
-    <input id="ingresos" name="ingresos" type="number" step="0.01" min="0" required />
+  <div class="card-body">
 
-    <label for="score">Score (buro de crédito)</label>
-    <input id="score" name="score" type="number" min="0" max="999" required />
-    <div style="margin-top:6px; display:flex; align-items:center; gap:8px">
-      <input id="scoreRange" type="range" min="0" max="999" value="0" style="flex:1" />
-      <span id="scoreValue" aria-live="polite" style="min-width:40px; text-align:right; font-weight:600">0</span>
-    </div>
+    <form id="loanForm">
 
-
-    <div class="row">
-      <div>
-        <label for="monto">Monto solicitado</label>
-        <input id="monto" name="monto" type="number" step="0.01" min="0" required />
+      <div class="row">
+        <div>
+          <label>Edad</label>
+          <input type="number" id="edad" required>
+        </div>
+        <div>
+          <label>Score (buró de crédito)</label>
+          <input type="number" id="score" min="0" max="999" required>
+        </div>
       </div>
-      <div>
-        <label for="meses">Número de meses</label>
-        <input id="meses" name="meses" type="number" min="1" required />
+
+      <div class="range-container">
+        <input type="range" id="scoreRange" min="0" max="999" value="0" style="flex:1;">
+        <span id="scoreValue">0</span>
       </div>
-    </div>
 
-    <label for="tasa">Tasa de interés anual (%)</label>
-    <input id="tasa" name="tasa" type="number" step="0.01" min="0" required />
+      <label>Lugar de nacimiento</label>
+      <input type="text" id="lugar" required>
 
-    <button type="submit">Calcular</button>
-  </form>
+      <label>Ingresos mensuales (MXN)</label>
+      <input type="number" id="ingresos" required>
 
-  <div id="resultado" aria-live="polite" hidden></div>
+      <div class="row">
+        <div>
+          <label>Monto solicitado</label>
+          <input type="number" id="monto" required>
+        </div>
+        <div>
+          <label>Número de meses</label>
+          <input type="number" id="meses" required>
+        </div>
+      </div>
 
-  <script>
-    const form = document.getElementById('loanForm');
-    const resultado = document.getElementById('resultado');
+      <label>Tasa de interés anual (%)</label>
+      <input type="number" id="tasa" step="0.01" required>
 
-    // Sincronizar input numérico y slider de score
-    const scoreInput = document.getElementById('score');
-    const scoreRange = document.getElementById('scoreRange');
-    const scoreValue = document.getElementById('scoreValue');
+      <button type="submit" class="btn">CALCULAR</button>
 
-    // Inicializar valores (si el campo numérico ya tuviera valor)
-    scoreRange.value = scoreInput.value || 0;
-    scoreValue.textContent = scoreRange.value;
+    </form>
 
-    scoreRange.addEventListener('input', () => {
-      scoreInput.value = scoreRange.value;
-      scoreValue.textContent = scoreRange.value;
-    });
+    <div id="resultado" hidden></div>
 
-    scoreInput.addEventListener('input', () => {
-      const v = scoreInput.value === '' ? 0 : scoreInput.value;
-      scoreRange.value = v;
-      scoreValue.textContent = v;
-    });
+  </div>
+</div>
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const edad = Number(document.getElementById('edad').value);
-      const lugar = document.getElementById('lugar').value.trim();
-      const ingresos = Number(document.getElementById('ingresos').value);
-      const score = Number(document.getElementById('score').value);
-      const monto = Number(document.getElementById('monto').value);
-      const meses = Number(document.getElementById('meses').value);
-      const tasaAnual = Number(document.getElementById('tasa').value);
+<script>
+const form = document.getElementById('loanForm');
+const resultado = document.getElementById('resultado');
 
-      // validación simple del score (ajusta rangos según tu país)
-      if (score < 0 || score > 999) {
-        alert('Ingrese un score válido.');
-        return;
-      }
+const scoreInput = document.getElementById('score');
+const scoreRange = document.getElementById('scoreRange');
+const scoreValue = document.getElementById('scoreValue');
 
-      // cálculo de cuota mensual (fórmula de amortización)
-      const r = tasaAnual / 100 / 12; // tasa mensual
-      let cuota;
-      if (r === 0) cuota = monto / meses;
-      else cuota = (monto * r) / (1 - Math.pow(1 + r, -meses));
+scoreRange.addEventListener('input', () => {
+  scoreInput.value = scoreRange.value;
+  scoreValue.textContent = scoreRange.value;
+});
 
-      resultado.hidden = false;
-      resultado.innerHTML = `
-        <strong>Resumen:</strong>
-        <div>Edad: ${edad}</div>
-        <div>Lugar de nacimiento: ${lugar}</div>
-        <div>Ingresos mensuales: ${ingresos.toFixed(2)}</div>
-        <div>Score: ${score}</div>
-        <div>Monto: ${monto.toFixed(2)}</div>
-        <div>Plazo (meses): ${meses}</div>
-        <div>Tasa anual: ${tasaAnual.toFixed(2)}%</div>
-        <div style="margin-top:8px"><strong>Cuota mensual estimada:</strong> ${cuota.toFixed(2)}</div>
-      `;
-    });
+scoreInput.addEventListener('input', () => {
+  const v = scoreInput.value || 0;
+  scoreRange.value = v;
+  scoreValue.textContent = v;
+});
 
-  </script>
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+
+  const edad = Number(document.getElementById('edad').value);
+  const lugar = document.getElementById('lugar').value;
+  const ingresos = Number(document.getElementById('ingresos').value);
+  const score = Number(document.getElementById('score').value);
+  const monto = Number(document.getElementById('monto').value);
+  const meses = Number(document.getElementById('meses').value);
+  const tasaAnual = Number(document.getElementById('tasa').value);
+
+  if(score < 0 || score > 999){
+    alert("Ingrese un score válido (0-999)");
+    return;
+  }
+
+  const r = tasaAnual / 100 / 12;
+  let cuota;
+
+  if(r === 0){
+    cuota = monto / meses;
+  } else {
+    cuota = (monto * r) / (1 - Math.pow(1 + r, -meses));
+  }
+
+  resultado.hidden = false;
+  resultado.innerHTML = `
+    <strong>Resumen:</strong><br><br>
+    Edad: ${edad}<br>
+    Lugar de nacimiento: ${lugar}<br>
+    Ingresos mensuales: $${ingresos.toFixed(2)}<br>
+    Score: ${score}<br>
+    Monto solicitado: $${monto.toFixed(2)}<br>
+    Plazo: ${meses} meses<br>
+    Tasa anual: ${tasaAnual}%<br><br>
+    <strong>Cuota mensual estimada: $${cuota.toFixed(2)}</strong>
+  `;
+});
+</script>
+
 </body>
 </html>
