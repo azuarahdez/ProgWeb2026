@@ -13,15 +13,3 @@ div{
     padding: 64px;
     border: 40px solid #3b37ad;
 }
-
-div{
-    box-sizing: border-box;
-    display: inline-table;
-    margin: 40px;
-    width: min-content;
-    height: min-content;
-    background-color: hsl(240, 41%, 76%);
-    font-size: 75px;
-    padding: 64px;
-    border: 20px solid #3b37ad;
-}
