@@ -12,4 +12,7 @@ div{
     font-size: 75px;
     padding: 64px;
     border: 40px solid #3b37ad;
+    border-radius: 20px;
+    box-shadow: 15px 32px 15px 5px #646467;
 }
+
