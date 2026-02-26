@@ -1,11 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Otros</title>
+    <title>Formulario Básico</title>
 </head>
 <body>
-    
+<h2>Formulario de Preferencias</h2>
+<form action="#" method="post">
+
+<!-- CHECKBOX -->
+    <h3>1. Selecciona tus hobbies:</h3> 
+        <input type="checkbox" id="leer" name="hobbies" value="Leer">
+        <label for="leer">Leer</label><br>
+
+        <input type="checkbox" id="musica" name="hobbies" value="Música">
+        <label for="musica">Escuchar música</label><br>
+
+        <input type="checkbox" id="deporte" name="hobbies" value="Deporte">
+        <label for="deporte">Hacer deporte</label><br>
+
+        <input type="checkbox" id="videojuegos" name="hobbies" value="Videojuegos">
+        <label for="videojuegos">Jugar videojuegos</label><br>
+    <br>
+
+<!-- RADIO BUTTON -->
+    <h3>2. Selecciona tu género:</h3>
+        <input type="radio" id="orange" name="color" value="Orange">
+        <label for="orange">Naranja</label><br>
+
+        <input type="radio" id="cian" name="color" value="Cian">
+        <label for="cian">Cian</label><br>
+
+        <input type="radio" id="green" name="color" value="Green">
+        <label for="green">Verde</label><br>
+
+        <input type="radio" id="purple" name="color" value="Purple">
+        <label for="purple">Morado</label><br>
+    <br>
+
+<!-- CHECKLIST -->
+    <h3>3. Selecciona tu país de nacimiento:</h3>
+        <select name="pais">
+            <option value="">-- Selecciona una opción --</option>
+            <option value="mexico">México</option>
+            <option value="colombia">Colombia</option>
+            <option value="argentina">Argentina</option>
+            <option value="espana">España</option>
+            <option value="peru">Perú</option>
+        </select>
+    <br><br>
+
+<!-- COLOR PICKER -->
+    <h3>4. Selecciona tu color favorito:</h3>
+        <input type="color" name="color" value="#0000ff"><br>
+        <br>
+
+<!-- DATE PICKER -->
+    <h3>5. Selecciona tu fecha de nacimiento:</h3>
+        <input type="date" name="fecha"><br>
+    <br>
+
+<!-- FILE -->
+    <h3>6. Sube tu archivo:</h3>
+        <input type="file" name="archivo"><br>
+    <br>
+
+<!-- BOTÓN -->
+    <input type="submit" value="Enviar">
+    </form>
+
+
 </body>
 </html>
