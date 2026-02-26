@@ -11,8 +11,7 @@ div{
     background-color: hsl(240, 41%, 76%);
     font-size: 75px;
     padding: 64px;
-    border: 40px solid #3b37ad;
-    border-radius: 20px;
-    box-shadow: 15px 32px 15px 5px #646467;
+    border: 20px solid #3b37ad;
+    border-radius: 10px;
 }
 
