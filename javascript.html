@@ -1,13 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ejemplo</title>
+        <style>
+        .seleccionado{
+            border-color: rgb(0, 157, 255);
+        }
+    </style>
 </head>
 <body>
-    <script type="text/javascript">
-        confirm("¡Hello World!");
+
+    <input type="text" id="txtnombre" placeholder="Escribe tu nombre" 
+    onclick="cambiaestilo()">
+    <input type="button" value="Submit" 
+    onclick="alerta()">
+
+    <script>
+        alert("Bienvenido a mi página web");
+        confirm("¿Deseas continuar navegando?");
+        function alerta() {
+            alert(document.getElementById("txtnombre").value);
+        }
+        function cambiaestilo() {
+            document.getElementById("txtnombre").className = " seleccionado";
+        }
     </script>
+
 </body>
 </html>
