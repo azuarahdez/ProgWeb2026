@@ -1,0 +1,103 @@
+/* =========================
+   PALETA GENERAL
+========================= */
+body {
+    background-color: #f6f3fa; /* lila muy suave */
+    font-family: 'Georgia', serif;
+    color: #2e2e2e;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    background-color: #ffffff !important;
+    border-bottom: 2px solid #e4d9f7;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    color: #5e3ea1 !important;
+    letter-spacing: 0.5px;
+}
+
+.nav-link {
+    color: #5e3ea1 !important;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #8c6dd7 !important;
+}
+
+/* =========================
+   CARRUSEL
+========================= */
+.carousel-caption {
+    background: rgba(146, 138, 163, 0.6);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.carousel-caption h5 {
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.carousel-caption p {
+    font-style: italic;
+}
+
+/* =========================
+   TITULOS
+========================= */
+h2 {
+    font-weight: 600;
+    color: #5e3ea1;
+    position: relative;
+}
+
+h2::after {
+    content: "";
+    width: 60px;
+    height: 3px;
+    background-color: #b497e7;
+    display: block;
+    margin: 10px auto 0;
+}
+
+/* =========================
+   CARDS
+========================= */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(94, 62, 161, 0.1);
+    transition: 0.3s ease;
+    background-color: #ffffff;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(94, 62, 161, 0.2);
+}
+
+.card-title {
+    color: #5e3ea1;
+    font-weight: 600;
+}
+
+.card-text {
+    color: #555;
+}
+
+/* =========================
+   IMAGENES
+========================= */
+.card-img-top {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
