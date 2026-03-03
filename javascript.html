@@ -17,11 +17,17 @@
     <input type="button" value="Submit" 
     onclick="alerta()">
 
-    <input type="number" name="NumeroA" id="txtNumeroA" placeholder="NumberA">
-    <input type="number" name="NumeroB" id="txtNumeroB" placeholder="NumberB">
+    <input type="number" name="NumeroA" id="txtNumeroA">
     <input type="button" value="Sumar" onclick="sumar()">
+    <input type="number" name="NumeroB" id="txtNumeroB">
+    <input type="number" id="txtResultado">
 
     <script>
+        function sumar(){
+            var a;
+            a=document.getElementById("txtNumeroA");
+            alert(a);
+        }
         function alerta() {
             alert(document.getElementById("txtnombre").value);
         }
