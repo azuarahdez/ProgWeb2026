@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejemplo</title>
-        <style>
+    <title>Java Script</title>
+
+    <style>
         .seleccionado{
-            border-color: rgb(0, 157, 255);
+            border: 2px solid rgb(61, 22, 129);
         }
     </style>
 </head>
@@ -14,26 +15,33 @@
 
     <input type="text" id="txtnombre" placeholder="Escribe tu nombre" 
     onclick="cambiaestilo()">
-    <input type="button" value="Submit" 
-    onclick="alerta()">
-
-    <input type="number" name="NumeroA" id="txtNumeroA">
-    <input type="button" value="Sumar" onclick="sumar()">
-    <input type="number" name="NumeroB" id="txtNumeroB">
-    <input type="number" id="txtResultado">
+    <input type="button" value="Submit" onclick="alerta()">
+    <br><br>
+    <input type="number" id="txtNumeroA">
+    <input type="button" value="+" onclick="sumar()">
+    <input type="number" id="txtNumeroB">
+    <input type="number" id="txtResultado" placeholder="Resultado" readonly>
 
     <script>
+
         function sumar(){
-            var a;
-            a=document.getElementById("txtNumeroA");
-            alert(a);
+            var a = parseInt(document.getElementById("txtNumeroA").value);
+            var b = parseInt(document.getElementById("txtNumeroB").value);
+            var c;
+            c = a + b;
+            document.getElementById("txtResultado").value = c;
+
+            alert("El resultado es: " + c);
         }
+
         function alerta() {
             alert(document.getElementById("txtnombre").value);
         }
+
         function cambiaestilo() {
-            document.getElementById("txtnombre").className = " seleccionado";
+            document.getElementById("txtnombre").className = "seleccionado";
         }
+
     </script>
 
 </body>
