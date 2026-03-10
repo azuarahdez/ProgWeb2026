@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Canciones de Bad Omens</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background-color: #f2f2f2;
+margin: 0;
+text-align: center;
+}
+
+h1{
+margin: 20px;
+}
+
+/* contenedor de tarjetas */
+.contenedor{
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 20px;
+width: 80%;
+margin: auto;
+}
+
+/* tarjeta */
+.card{
+background: white;
+border-radius: 10px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+padding: 15px;
+}
+
+.card img{
+width: 100%;
+border-radius: 8px;
+}
+
+.card h3{
+margin: 10px 0 5px 0;
+}
+
+.card p{
+margin: 4px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Canciones de Bad Omens</h1>
+
+<div class="contenedor" id="contenedor"></div>
+
+<script>
+
+fetch("datos.json")
+.then(res => res.json())
+.then(data => {
+
+let contenedor = document.getElementById("contenedor");
+
+data.songs.forEach(song => {
+
+let card = `
+<div class="card">
+<img src="${song.image}">
+<h3>${song.title}</h3>
+<p><b>Álbum:</b> ${song.album}</p>
+<p><b>Año:</b> ${song.year}</p>
+</div>
+`;
+
+contenedor.innerHTML += card;
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

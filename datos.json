@@ -1,0 +1,47 @@
+{
+  "songs": [
+
+    {
+      "title": "Just Pretend",
+      "album": "The Death of Peace of Mind",
+      "year": 2022,
+      "image": "json_images/justpretend.jpg"
+    },
+
+    {
+      "title": "The Death of Peace of Mind",
+      "album": "The Death of Peace of Mind",
+      "year": 2022,
+      "image": "json_images/deathofpeace.jpg"
+    },
+
+    {
+      "title": "Artificial Suicide",
+      "album": "The Death of Peace of Mind",
+      "year": 2022,
+      "image": "json_images/artificial.jpeg"
+    },
+
+    {
+      "title": "Like a Villain",
+      "album": "The Death of Peace of Mind",
+      "year": 2022,
+      "image": "json_images/villain.jpeg"
+    },
+
+    {
+      "title": "Limits",
+      "album": "Finding God Before God Finds Me",
+      "year": 2019,
+      "image": "json_images/limits.jpg"
+    },
+
+    {
+      "title": "Dying to Love",
+      "album": "Finding God Before God Finds Me",
+      "year": 2019,
+      "image": "json_images/dyingtolove.jpg"
+    }
+
+  ]
+}
