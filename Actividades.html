@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Actividades — Manos que ayudan</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="icons/icono_page.png">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Nunito', Arial, sans-serif; }
+
+        /* ── Hero compacto ── */
+        .hero-actividades {
+            background: linear-gradient(135deg, #f0f7e6 0%, #e8f5e9 100%);
+            padding: 60px 5% 50px;
+            text-align: center;
+        }
+        .hero-actividades .etiqueta {
+            color: var(--verde-principal);
+            font-weight: 800;
+            letter-spacing: 2px;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+        .hero-actividades h1 {
+            font-size: 2.6rem;
+            color: var(--gris-texto);
+            margin-bottom: 16px;
+        }
+        .hero-actividades p {
+            max-width: 620px;
+            margin: 0 auto;
+            color: #555;
+            font-size: 1.05rem;
+        }
+
+        /* ── Filtros ── */
+        .filtros-bar {
+            background: var(--blanco);
+            border-bottom: 1px solid var(--gris-borde);
+            padding: 16px 5%;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: sticky;
+            top: 85px;
+            z-index: 900;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .filtro-btn {
+            padding: 7px 18px;
+            border-radius: 20px;
+            border: 2px solid var(--verde-principal);
+            background: transparent;
+            color: var(--verde-principal);
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .filtro-btn:hover, .filtro-btn.activo {
+            background: var(--verde-principal);
+            color: white;
+        }
+
+        /* ── Grid de tarjetas ── */
+        .grid-actividades {
+            max-width: 1250px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 28px;
+        }
+
+        .card-actividad {
+            background: var(--blanco);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-actividad:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.13);
+        }
+
+        .card-img-wrap {
+            position: relative;
+            height: 185px;
+            overflow: hidden;
+            background: #e0e0e0;
+        }
+        .card-img-wrap img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+        .card-actividad:hover .card-img-wrap img { transform: scale(1.06); }
+
+        .badge-categoria {
+            position: absolute;
+            top: 12px; left: 12px;
+            background: var(--verde-principal);
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .card-body h3 {
+            font-size: 1.1rem;
+            color: var(--gris-texto);
+            margin-bottom: 4px;
+        }
+        .card-body p {
+            font-size: 0.9rem;
+            color: #666;
+            flex: 1;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--gris-borde);
+        }
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: #777;
+            font-weight: 600;
+        }
+        .meta-item svg { flex-shrink: 0; }
+
+        .impacto-chip {
+            margin-top: 10px;
+            background: #f0f7e6;
+            border-left: 3px solid var(--verde-principal);
+            padding: 8px 12px;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.83rem;
+            color: #4a7c20;
+            font-weight: 600;
+        }
+
+        /* ── Estadísticas ── */
+        .stats-banner {
+            background: var(--verde-principal);
+            padding: 45px 5%;
+            margin-top: 20px;
+        }
+        .stats-inner {
+            max-width: 1000px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+        .stat-item h2 {
+            font-size: 2.4rem;
+            color: white;
+            font-weight: 800;
+        }
+        .stat-item p {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="splash-container"><canvas id="fluid"></canvas></div>
+
+<header>
+    <nav class="menu-container">
+        <div class="nav-top">
+            <div class="logo">
+                <img src="icons/icono_page.png" alt="logo">
+                <h2>Manos que ayudan</h2>
+            </div>
+            <div class="botones">
+                <a href="login.html" class="btn btn-primary">Iniciar sesión</a>
+                <a href="register.html" class="btn btn-primary">Registrarme</a>
+            </div>
+        </div>
+        <div class="nav-bottom">
+            <ul class="links">
+                <li><a href="COMUNIDAD.html">Inicio</a></li>
+                <li><a href="Actividades.html">Actividades</a></li>
+                <li><a href="Calendario.html">Calendario</a></li>
+                <li><a href="Voluntariado.html">Voluntariado</a></li>
+                <li><a href="Eventos.html">Eventos</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero-actividades">
+    <p class="etiqueta">LO QUE HACEMOS</p>
+    <h1>Actividades de voluntariado</h1>
+    <p>Conoce todas las iniciativas activas en tu comunidad. Cada acción cuenta y transforma vidas.</p>
+</section>
+
+<!-- Filtros -->
+<div class="filtros-bar">
+    <button class="filtro-btn activo">Todas</button>
+    <button class="filtro-btn">Ambiental</button>
+    <button class="filtro-btn">Social</button>
+    <button class="filtro-btn">Educativo</button>
+    <button class="filtro-btn">Animal</button>
+    <button class="filtro-btn">Alimentación</button>
+</div>
+
+<!-- Grid de actividades -->
+<div class="grid-actividades">
+
+    <!-- Tarjeta 1 -->
+    <div class="card-actividad">
+        <div class="card-img-wrap">
+            <img src="images/actividad_despensas.jpg" alt="Entrega de despensas">
+            <span class="badge-categoria">Alimentación</span>
+        </div>
+        <div class="card-body">
+            <h3>Entrega de despensas</h3>
+            <p>Distribución de canastas básicas de alimentos a familias en situación vulnerable de la comunidad.</p>
+            <div class="card-meta">
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Col. Centro, Misantla
+                </span>
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    Sábados 9:00 am
+                </span>
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    24 voluntarios
+                </span>
+            </div>
+            <p class="impacto-chip">Entrega de despensas a 40 familias de la comunidad.</p>
+        </div>
+    </div>
+
+    <!-- Tarjeta 2 -->
+    <div class="card-actividad">
+        <div class="card-img-wrap">
+            <img src="images/actividad_limpieza.jpg" alt="Limpieza de parques">
+            <span class="badge-categoria">Ambiental</span>
+        </div>
+        <div class="card-body">
+            <h3>Limpieza de parques y calles</h3>
+            <p>Jornadas de limpieza en espacios públicos para mantener entornos saludables y agradables para todos.</p>
+            <div class="card-meta">
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Parque Municipal
+                </span>
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    Domingos 8:00 am
+                </span>
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    38 voluntarios
+                </span>
+            </div>
+            <p class="impacto-chip">3 toneladas de residuos recogidos en el último mes.</p>
+        </div>
+    </div>
+
+    <!-- Tarjeta 3 -->
+    <div class="card-actividad">
+        <div class="card-img-wrap">
+            <img src="images/actividad_escolar.jpg" alt="Apoyo escolar">
+            <span class="badge-categoria">Educativo</span>
+        </div>
+        <div class="card-body">
+            <h3>Apoyo escolar para niños</h3>
+            <p>Tutorías y refuerzo educativo para estudiantes de primaria con dificultades académicas en zonas rurales.</p>
+            <div class="card-meta">
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Escuela Prim. Juárez
+                </span>
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    Lun–Vie 4:00 pm
+                </span>
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    15 voluntarios
+                </span>
+            </div>
+            <p class="impacto-chip">60 niños beneficiados con mejoras en su rendimiento.</p>
+        </div>
+    </div>
+
+    <!-- Tarjeta 4 -->
+    <div class="card-actividad">
+        <div class="card-img-wrap">
+            <img src="images/actividad_reforestacion.jpg" alt="Reforestación">
+            <span class="badge-categoria">Ambiental</span>
+        </div>
+        <div class="card-body">
+            <h3>Reforestación de zonas degradadas</h3>
+            <p>Plantación de árboles nativos en áreas afectadas por la deforestación para restaurar el ecosistema local.</p>
+            <div class="card-meta">
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Cerro de la Cruz
+                </span>
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    1er sábado del mes
+                </span>
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    50 voluntarios
+                </span>
+            </div>
+            <p class="impacto-chip">Más de 1,200 árboles plantados este año.</p>
+        </div>
+    </div>
+
+    <!-- Tarjeta 5 -->
+    <div class="card-actividad">
+        <div class="card-img-wrap">
+            <img src="images/actividad_animal.jpg" alt="Rescate animal">
+            <span class="badge-categoria">Animal</span>
+        </div>
+        <div class="card-body">
+            <h3>Rescate y cuidado animal</h3>
+            <p>Atención a animales callejeros: rescate, vacunación, esterilización y gestión de adopciones responsables.</p>
+            <div class="card-meta">
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Refugio Municipal
+                </span>
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    Todos los días
+                </span>
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    20 voluntarios
+                </span>
+            </div>
+            <p class="impacto-chip">85 animales rescatados y 40 adoptados este semestre.</p>
+        </div>
+    </div>
+
+    <!-- Tarjeta 6 -->
+    <div class="card-actividad">
+        <div class="card-img-wrap">
+            <img src="images/actividad_reciclaje.jpg" alt="Campaña de reciclaje">
+            <span class="badge-categoria">Ambiental</span>
+        </div>
+        <div class="card-body">
+            <h3>Campaña de reciclaje</h3>
+            <p>Talleres de separación de residuos y puntos de recolección para fomentar hábitos sustentables.</p>
+            <div class="card-meta">
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Colonia Reforma
+                </span>
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    Miércoles 10:00 am
+                </span>
+                <span class="meta-item">
+                    <svg width="13" height="13" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    18 voluntarios
+                </span>
+            </div>
+            <p class="impacto-chip">500 kg de material reciclado recuperado al mes.</p>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="bottom-bar">
+    <div class="contenedor" style="text-align:center;">
+        Copyright © 2026 para el Equipo oficial alfa buena maravilla escuadron lobo suicida
+    </div>
+</div>
+
+<script>
+    // Filtros interactivos
+    document.querySelectorAll('.filtro-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
+            this.classList.add('activo');
+        });
+    });
+</script>
+</body>
+</html>

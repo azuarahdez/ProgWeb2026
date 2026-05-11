@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Voluntariado — Manos que ayudan</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="icons/icono_page.png">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Nunito', Arial, sans-serif; }
+
+        /* ── Hero ── */
+        .hero-vol {
+            background: linear-gradient(135deg, #f0f7e6, #e8f5e9);
+            padding: 70px 5% 60px;
+            text-align: center;
+        }
+        .hero-vol .etiqueta {
+            color: var(--verde-principal);
+            font-weight: 800;
+            letter-spacing: 2px;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+        .hero-vol h1 { font-size: 2.6rem; margin-bottom: 16px; }
+        .hero-vol p { max-width: 620px; margin: 0 auto; color: #555; font-size: 1.05rem; }
+
+        /* ── Layout de 2 columnas ── */
+        .vol-layout {
+            max-width: 1250px;
+            margin: 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        /* ── Secciones de info ── */
+        .vol-section { margin-bottom: 50px; }
+        .vol-section h2 {
+            font-size: 1.5rem;
+            color: var(--gris-texto);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--verde-principal);
+            display: inline-block;
+        }
+
+        /* Tipos de voluntariado como pills */
+        .tipos-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .tipo-pill {
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            background: #f0f7e6;
+            color: #4a7c20;
+            border: 2px solid var(--verde-principal);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tipo-pill span { font-size: 16px; }
+
+        /* Requisitos como lista estilizada */
+        .req-list { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+        .req-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.95rem;
+            color: #444;
+        }
+        .req-list li::before {
+            content: "✓";
+            background: var(--verde-principal);
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* Beneficios como tarjetas */
+        .beneficios-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 12px;
+        }
+        .beneficio-card {
+            background: var(--gris-fondo);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .beneficio-icon {
+            font-size: 24px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .beneficio-card h4 { font-size: 0.9rem; margin-bottom: 2px; color: var(--gris-texto); }
+        .beneficio-card p { font-size: 0.8rem; color: #777; }
+
+        /* ── Formulario ── */
+        .form-col { position: sticky; top: 110px; height: fit-content; }
+        .form-card {
+            background: var(--blanco);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            padding: 36px;
+        }
+        .form-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+            color: var(--gris-texto);
+        }
+        .form-card .subtitulo {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 24px;
+        }
+
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gris-texto);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.95rem;
+            color: var(--gris-texto);
+            transition: border-color 0.25s;
+            outline: none;
+            background: var(--blanco);
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--verde-principal);
+        }
+        .form-group textarea { resize: vertical; min-height: 90px; }
+
+        /* Checkboxes de intereses */
+        .intereses-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.88rem;
+            color: #555;
+            cursor: pointer;
+        }
+        .check-item input[type="checkbox"] { accent-color: var(--verde-principal); width: 15px; height: 15px; }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--verde-principal);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+        .btn-submit:hover {
+            background: var(--verde-oscuro);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(139,195,74,0.4);
+        }
+
+        /* ── Banner CTA ── */
+        .cta-banner {
+            background: var(--gris-texto);
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .cta-banner h2 { color: white; font-size: 2rem; margin-bottom: 14px; }
+        .cta-banner p { color: rgba(255,255,255,0.75); margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    </style>
+</head>
+<body>
+
+<div id="splash-container"><canvas id="fluid"></canvas></div>
+
+<header>
+    <nav class="menu-container">
+        <div class="nav-top">
+            <div class="logo">
+                <img src="icons/icono_page.png" alt="logo">
+                <h2>Manos que ayudan</h2>
+            </div>
+            <div class="botones">
+                <a href="login.html" class="btn btn-primary">Iniciar sesión</a>
+                <a href="register.html" class="btn btn-primary">Registrarme</a>
+            </div>
+        </div>
+        <div class="nav-bottom">
+            <ul class="links">
+                <li><a href="COMUNIDAD.html">Inicio</a></li>
+                <li><a href="Actividades.html">Actividades</a></li>
+                <li><a href="Calendario.html">Calendario</a></li>
+                <li><a href="Voluntariado.html">Voluntariado</a></li>
+                <li><a href="Eventos.html">Eventos</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero-vol">
+    <p class="etiqueta">ÚNETE A NOSOTROS</p>
+    <h1>Sé parte del cambio</h1>
+    <p>Descubre cómo puedes contribuir, qué necesitas para participar y los beneficios de unirte a nuestra red de voluntariado.</p>
+</section>
+
+<!-- Layout principal -->
+<div class="vol-layout">
+
+    <!-- Columna izquierda: información -->
+    <div class="vol-info">
+
+        <!-- Requisitos -->
+        <div class="vol-section">
+            <h2>Requisitos para participar</h2>
+            <ul class="req-list">
+                <li>Edad mínima de 15 años (menores con autorización del tutor).</li>
+                <li>Disponibilidad de al menos 2 horas por semana.</li>
+                <li>Actitud de respeto, compromiso y trabajo en equipo.</li>
+                <li>Para actividades físicas: buena condición de salud.</li>
+                <li>Para talleres educativos: conocimiento básico de la materia.</li>
+                <li>Algunos roles requieren materiales propios (guantes, botas, etc.).</li>
+            </ul>
+        </div>
+
+        <!-- Tipos -->
+        <div class="vol-section">
+            <h2>Tipos de voluntariado</h2>
+            <div class="tipos-grid">
+                <div class="tipo-pill"><span></span> Comunitario</div>
+                <div class="tipo-pill"><span></span> Ambiental</div>
+                <div class="tipo-pill"><span></span> Educativo</div>
+                <div class="tipo-pill"><span></span> Virtual</div>
+                <div class="tipo-pill"><span></span> Presencial</div>
+                <div class="tipo-pill"><span></span> Animal</div>
+                <div class="tipo-pill"><span></span> Temporal</div>
+                <div class="tipo-pill"><span></span> Permanente</div>
+            </div>
+        </div>
+
+        <!-- Beneficios -->
+        <div class="vol-section">
+            <h2>¿Qué obtienes al participar?</h2>
+            <div class="beneficios-grid">
+                <div class="beneficio-card">
+                    <div class="beneficio-icon"></div>
+                    <div>
+                        <h4>Constancia oficial</h4>
+                        <p>Documento avalado por la organización.</p>
+                    </div>
+                </div>
+                <div class="beneficio-card">
+                    <div class="beneficio-icon"></div>
+                    <div>
+                        <h4>Horas de servicio social</h4>
+                        <p>Válidas para instituciones educativas.</p>
+                    </div>
+                </div>
+                <div class="beneficio-card">
+                    <div class="beneficio-icon"></div>
+                    <div>
+                        <h4>Desarrollo personal</h4>
+                        <p>Liderazgo, empatía y trabajo en equipo.</p>
+                    </div>
+                </div>
+                <div class="beneficio-card">
+                    <div class="beneficio-icon"></div>
+                    <div>
+                        <h4>Impacto social real</h4>
+                        <p>Ves el resultado directo de tu esfuerzo.</p>
+                    </div>
+                </div>
+                <div class="beneficio-card">
+                    <div class="beneficio-icon"></div>
+                    <div>
+                        <h4>Red de contactos</h4>
+                        <p>Conecta con personas con tus mismos valores.</p>
+                    </div>
+                </div>
+                <div class="beneficio-card">
+                    <div class="beneficio-icon"></div>
+                    <div>
+                        <h4>Experiencia laboral</h4>
+                        <p>Enriquece tu CV y portafolio profesional.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Columna derecha: formulario sticky -->
+    <div class="form-col">
+        <div class="form-card">
+            <h2>¡Quiero ser voluntario!</h2>
+            <p class="subtitulo">Llena el formulario y nos pondremos en contacto contigo en menos de 48 horas.</p>
+
+            <div class="form-group">
+                <label>Nombre completo</label>
+                <input type="text" placeholder="Ej. María García López">
+            </div>
+            <div class="form-group">
+                <label>Correo electrónico</label>
+                <input type="email" placeholder="correo@ejemplo.com">
+            </div>
+            <div class="form-group">
+                <label>Teléfono</label>
+                <input type="tel" placeholder="+52 228 000 0000">
+            </div>
+            <div class="form-group">
+                <label>Tipo de voluntariado</label>
+                <select>
+                    <option value="">Selecciona una opción…</option>
+                    <option>Comunitario presencial</option>
+                    <option>Ambiental</option>
+                    <option>Educativo</option>
+                    <option>Virtual / remoto</option>
+                    <option>Rescate animal</option>
+                    <option>Cualquiera / me adapto</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Disponibilidad</label>
+                <select>
+                    <option value="">Selecciona…</option>
+                    <option>Fines de semana</option>
+                    <option>Entre semana por las mañanas</option>
+                    <option>Entre semana por las tardes</option>
+                    <option>Flexible</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Áreas de interés</label>
+                <div class="intereses-grid">
+                    <label class="check-item"><input type="checkbox"> Alimentación</label>
+                    <label class="check-item"><input type="checkbox"> Medio ambiente</label>
+                    <label class="check-item"><input type="checkbox"> Educación</label>
+                    <label class="check-item"><input type="checkbox"> Animales</label>
+                    <label class="check-item"><input type="checkbox"> Salud</label>
+                    <label class="check-item"><input type="checkbox"> Adultos mayores</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Cuéntanos sobre ti (opcional)</label>
+                <textarea placeholder="Habilidades, experiencia previa, motivación…"></textarea>
+            </div>
+
+            <button class="btn-submit">Enviar solicitud →</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="bottom-bar">
+    <div class="contenedor" style="text-align:center;">
+        Copyright © 2026 para el Equipo oficial alfa buena maravilla escuadron lobo suicida
+    </div>
+</div>
+
+</body>
+</html>

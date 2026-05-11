@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eventos — Manos que ayudan</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="icons/icono_page.png">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Nunito', Arial, sans-serif; }
+
+        /* ── Hero ── */
+        .hero-eventos {
+            background: linear-gradient(135deg, #f0f7e6, #e8f5e9);
+            padding: 70px 5% 60px;
+            text-align: center;
+        }
+        .hero-eventos .etiqueta {
+            color: var(--verde-principal);
+            font-weight: 800;
+            letter-spacing: 2px;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+        .hero-eventos h1 { font-size: 2.6rem; margin-bottom: 16px; }
+        .hero-eventos p { max-width: 620px; margin: 0 auto; color: #555; font-size: 1.05rem; }
+
+        /* ── Tabs ── */
+        .tabs-bar {
+            max-width: 1250px;
+            margin: 40px auto 0;
+            padding: 0 20px;
+            display: flex;
+            gap: 6px;
+            border-bottom: 2px solid var(--gris-borde);
+        }
+        .tab-btn {
+            padding: 10px 22px;
+            border: none;
+            background: transparent;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #888;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.25s;
+        }
+        .tab-btn:hover { color: var(--verde-principal); }
+        .tab-btn.activo {
+            color: var(--verde-principal);
+            border-bottom-color: var(--verde-principal);
+        }
+
+        /* ── Evento destacado (card grande) ── */
+        .evento-destacado {
+            max-width: 1250px;
+            margin: 40px auto 20px;
+            padding: 0 20px;
+        }
+        .card-evento-grande {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            background: white;
+        }
+        .card-evento-grande .ev-imagen {
+            position: relative;
+            min-height: 340px;
+            background: #c5e1a5;
+            overflow: hidden;
+        }
+        .card-evento-grande .ev-imagen img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        .badge-destacado {
+            position: absolute;
+            top: 16px; left: 16px;
+            background: #ff6f00;
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .ev-info {
+            padding: 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 14px;
+        }
+        .ev-fecha-lugar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .ev-dato {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #666;
+            font-weight: 600;
+        }
+        .ev-dato svg { color: var(--verde-principal); }
+        .ev-info h2 { font-size: 1.7rem; color: var(--gris-texto); line-height: 1.25; }
+        .ev-info p { font-size: 0.95rem; color: #555; }
+        .ev-asistentes {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #777;
+        }
+        .asistentes-avatares {
+            display: flex;
+        }
+        .asistentes-avatares span {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-left: -8px;
+            background: var(--verde-principal);
+            color: white;
+            font-weight: 800;
+        }
+        .asistentes-avatares span:first-child { margin-left: 0; }
+        .btn-registro {
+            align-self: flex-start;
+            padding: 12px 28px;
+            background: var(--verde-principal);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-registro:hover {
+            background: var(--verde-oscuro);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(139,195,74,0.4);
+        }
+
+        /* ── Grid de eventos ── */
+        .grid-eventos {
+            max-width: 1250px;
+            margin: 30px auto 60px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 26px;
+        }
+
+        .card-evento {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-evento:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        }
+
+        .ev-img-wrap {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+            background: #e0e0e0;
+        }
+        .ev-img-wrap img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+        .card-evento:hover .ev-img-wrap img { transform: scale(1.06); }
+
+        /* Etiqueta de fecha encima de imagen */
+        .fecha-label {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+            padding: 20px 16px 12px;
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-tipo {
+            position: absolute;
+            top: 12px; right: 12px;
+            background: rgba(255,255,255,0.9);
+            color: var(--gris-texto);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .ev-card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .ev-card-body h3 { font-size: 1.05rem; color: var(--gris-texto); }
+        .ev-card-body p { font-size: 0.88rem; color: #666; flex: 1; }
+
+        .ev-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-top: 1px solid var(--gris-borde);
+            background: #fafafa;
+        }
+        .ev-asist-small {
+            font-size: 12px;
+            color: #888;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-reg-small {
+            padding: 7px 18px;
+            background: var(--verde-principal);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-decoration: none;
+        }
+        .btn-reg-small:hover { background: var(--verde-oscuro); }
+
+        /* ── Sección pasados / stats ── */
+        .historial-banner {
+            background: var(--gris-fondo);
+            padding: 50px 5%;
+        }
+        .historial-inner {
+            max-width: 1000px;
+            margin: auto;
+            text-align: center;
+        }
+        .historial-inner h2 { font-size: 1.8rem; margin-bottom: 10px; }
+        .historial-inner p { color: #666; margin-bottom: 30px; }
+        .hist-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .hist-stat h3 { font-size: 2.2rem; color: var(--verde-principal); font-weight: 800; }
+        .hist-stat p { font-size: 0.85rem; color: #777; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+<div id="splash-container"><canvas id="fluid"></canvas></div>
+
+<header>
+    <nav class="menu-container">
+        <div class="nav-top">
+            <div class="logo">
+                <img src="icons/icono_page.png" alt="logo">
+                <h2>Manos que ayudan</h2>
+            </div>
+            <div class="botones">
+                <a href="login.html" class="btn btn-primary">Iniciar sesión</a>
+                <a href="register.html" class="btn btn-primary">Registrarme</a>
+            </div>
+        </div>
+        <div class="nav-bottom">
+            <ul class="links">
+                <li><a href="COMUNIDAD.html">Inicio</a></li>
+                <li><a href="Actividades.html">Actividades</a></li>
+                <li><a href="Calendario.html">Calendario</a></li>
+                <li><a href="Voluntariado.html">Voluntariado</a></li>
+                <li><a href="Eventos.html">Eventos</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero-eventos">
+    <p class="etiqueta">AGENDA DE EVENTOS</p>
+    <h1>Eventos y actividades especiales</h1>
+    <p>Carreras benéficas, ferias comunitarias, conciertos solidarios y más. ¡No te quedes fuera!</p>
+</section>
+
+<!-- Tabs -->
+<div class="tabs-bar">
+    <button class="tab-btn activo">Próximos</button>
+    <button class="tab-btn">Este mes</button>
+    <button class="tab-btn">Pasados</button>
+</div>
+
+<!-- Evento destacado -->
+<div class="evento-destacado">
+    <div class="card-evento-grande">
+        <div class="ev-imagen">
+            <img src="images/evento_festival.jpg" alt="Festival Solidario 2026">
+            <span class="badge-destacado">⭐Evento destacado</span>
+        </div>
+        <div class="ev-info">
+            <div class="ev-fecha-lugar">
+                <span class="ev-dato">
+                    <svg width="15" height="15" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    14 de junio, 2026
+                </span>
+                <span class="ev-dato">
+                    <svg width="15" height="15" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Plaza Central, Misantla
+                </span>
+                <span class="ev-dato">
+                    <svg width="15" height="15" fill="none" stroke="#8bc34a" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    10:00 am – 8:00 pm
+                </span>
+            </div>
+            <h2>Festival Solidario 2026</h2>
+            <p>Música en vivo, gastronomía local y actividades familiares para recaudar fondos y apoyar a los refugios de animales de la región. ¡Un día lleno de arte, cultura y corazón!</p>
+            <div class="ev-asistentes">
+                <div class="asistentes-avatares">
+                    <span>M</span><span>A</span><span>R</span><span>+</span>
+                </div>
+                <span>+240 personas confirmadas</span>
+            </div>
+            <a href="#registro" class="btn-registro">Registrarme al evento →</a>
+        </div>
+    </div>
+</div>
+
+<!-- Grid de eventos -->
+<div class="grid-eventos">
+
+    <!-- Evento 1 -->
+    <div class="card-evento">
+        <div class="ev-img-wrap">
+            <img src="images/evento_carrera.jpg" alt="Carrera benéfica">
+            <span class="badge-tipo">Deporte</span>
+            <div class="fecha-label">
+                <svg width="13" height="13" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                22 de junio, 2026 — 7:00 am
+            </div>
+        </div>
+        <div class="ev-card-body">
+            <h3>Carrera Benéfica 5K por la Infancia</h3>
+            <p>Corre y contribuye. Todos los fondos recaudados se destinarán a útiles escolares para niños en situación de vulnerabilidad.</p>
+            <span style="font-size:12px; color:#888; font-weight:600;">Av. Hidalgo, Misantla</span>
+        </div>
+        <div class="ev-card-footer">
+            <span class="ev-asist-small">180 registrados</span>
+            <a href="#" class="btn-reg-small">Registrarme</a>
+        </div>
+    </div>
+
+    <!-- Evento 2 -->
+    <div class="card-evento">
+        <div class="ev-img-wrap">
+            <img src="images/evento_feria.jpg" alt="Feria comunitaria">
+            <span class="badge-tipo">Feria</span>
+            <div class="fecha-label">
+                <svg width="13" height="13" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                5 de julio, 2026 — 9:00 am
+            </div>
+        </div>
+        <div class="ev-card-body">
+            <h3>Feria Comunitaria de Verano</h3>
+            <p>Artesanías, alimentos locales, juegos para niños y talleres gratuitos. La comunidad se une para celebrar y ayudar.</p>
+            <span style="font-size:12px; color:#888; font-weight:600;">Parque Municipal</span>
+        </div>
+        <div class="ev-card-footer">
+            <span class="ev-asist-small">320 esperados</span>
+            <a href="#" class="btn-reg-small">Registrarme</a>
+        </div>
+    </div>
+
+    <!-- Evento 3 -->
+    <div class="card-evento">
+        <div class="ev-img-wrap">
+            <img src="images/evento_colecta.jpg" alt="Colecta de ropa">
+            <span class="badge-tipo">Donación</span>
+            <div class="fecha-label">
+                <svg width="13" height="13" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Todo julio, 2026
+            </div>
+        </div>
+        <div class="ev-card-body">
+            <h3>Gran Colecta de Ropa y Útiles</h3>
+            <p>Puntos de recolección en toda la ciudad. Dona ropa en buen estado y útiles escolares para distribuir antes del regreso a clases.</p>
+            <span style="font-size:12px; color:#888; font-weight:600;">Varios puntos en Misantla</span>
+        </div>
+        <div class="ev-card-footer">
+            <span class="ev-asist-small">Abierto a todos</span>
+            <a href="#" class="btn-reg-small">Ver puntos</a>
+        </div>
+    </div>
+
+    <!-- Evento 4 -->
+    <div class="card-evento">
+        <div class="ev-img-wrap">
+            <img src="images/evento_taller.jpg" alt="Taller ecológico">
+            <span class="badge-tipo">Taller</span>
+            <div class="fecha-label">
+                <svg width="13" height="13" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                12 de julio, 2026 — 10:00 am
+            </div>
+        </div>
+        <div class="ev-card-body">
+            <h3>Taller: Composta y huerto en casa</h3>
+            <p>Aprende a reducir residuos orgánicos y cultivar tus propios alimentos. Cupos limitados, ¡regístrate pronto!</p>
+            <span style="font-size:12px; color:#888; font-weight:600;">Casa de Cultura, Misantla</span>
+        </div>
+        <div class="ev-card-footer">
+            <span class="ev-asist-small">Cupo: 30 personas</span>
+            <a href="#" class="btn-reg-small">Registrarme</a>
+        </div>
+    </div>
+
+    <!-- Evento 5 -->
+    <div class="card-evento">
+        <div class="ev-img-wrap">
+            <img src="images/evento_conferencia.jpg" alt="Conferencia">
+            <span class="badge-tipo">Conferencia</span>
+            <div class="fecha-label">
+                <svg width="13" height="13" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                19 de julio, 2026 — 5:00 pm
+            </div>
+        </div>
+        <div class="ev-card-body">
+            <h3>Conferencia: Impacto del voluntariado</h3>
+            <p>Charla magistral con líderes comunitarios sobre el papel del voluntariado en el desarrollo local sostenible. Entrada libre.</p>
+            <span style="font-size:12px; color:#888; font-weight:600;">Auditorio Municipal</span>
+        </div>
+        <div class="ev-card-footer">
+            <span class="ev-asist-small">Entrada libre</span>
+            <a href="#" class="btn-reg-small">Más info</a>
+        </div>
+    </div>
+
+    <!-- Evento 6 -->
+    <div class="card-evento">
+        <div class="ev-img-wrap">
+            <img src="images/evento_navidad.jpg" alt="Colecta navideña">
+            <span class="badge-tipo">Navidad</span>
+            <div class="fecha-label">
+                <svg width="13" height="13" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Diciembre 2026
+            </div>
+        </div>
+        <div class="ev-card-body">
+            <h3>Colecta navideña de juguetes</h3>
+            <p>Dona juguetes en buen estado para que todos los niños de la comunidad puedan tener una Navidad feliz. ¡Convocatoria abierta!</p>
+            <span style="font-size:12px; color:#888; font-weight:600;">Por definir</span>
+        </div>
+        <div class="ev-card-footer">
+            <span class="ev-asist-small">Próximamente</span>
+            <a href="#" class="btn-reg-small">Notificarme</a>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="bottom-bar">
+    <div class="contenedor" style="text-align:center;">
+        Copyright © 2026 para el Equipo oficial alfa buena maravilla escuadron lobo suicida
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('activo'));
+            this.classList.add('activo');
+        });
+    });
+</script>
+
+</body>
+</html>
